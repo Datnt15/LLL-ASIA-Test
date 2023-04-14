@@ -4,13 +4,13 @@ $array_length = 10;
 
 $rotation_steps = 4;
 // $rotation_steps = -4;
-// if rotation steps > 0 => items move from right to left
+// if rotation steps > 0 => items move from left to right
 // else, items move backward
 
 print_r(handler($rotation_steps, $array_length));
 
 function solution($arr, $rotation_steps) {
-  $number_to_slice = $rotation_steps > 0 ? count($arr) - abs($rotation_steps) : abs($rotation_steps);
+  $number_to_slice = $rotation_steps > 0 ? abs($rotation_steps) : count($arr) - abs($rotation_steps);
   $temp_arr = array_slice($arr, 0, $number_to_slice);
   array_splice($arr, 0, $number_to_slice);
   return array_merge($arr, $temp_arr);
@@ -21,12 +21,12 @@ function solution_2($arr, $rotation_steps) {
   $i = 0;
   while ($i < abs($rotation_steps)) {
     if ($rotation_steps > 0) {
-      $last_item = array_pop($arr);
-      array_unshift($arr, $last_item);
-    }
-    else {
       $first_item = array_shift($arr);
       array_push($arr, $first_item);
+    }
+    else {
+      $last_item = array_pop($arr);
+      array_unshift($arr, $last_item);
     }
     $i++;
   }
@@ -60,7 +60,7 @@ function handler($rotation_steps, $array_length) {
   }
 
   // Show rotated array
-  echo implode(' ', solution_2($arr, $rotation_steps));
+  echo implode(' ', solution($arr, $rotation_steps));
 }
 
 ?>
